@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="BLEDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M9V-Cs-roZ">
+                                <rect key="frame" x="121" y="130.5" width="78" height="30"/>
+                                <state key="normal" title="Disconnect"/>
+                                <connections>
+                                    <action selector="disconnectAction" destination="BYZ-38-t0r" eventType="touchUpInside" id="qwR-fs-hl3"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Peripheral state" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgK-NN-quF">
+                                <rect key="frame" x="16" y="30" width="75.5" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="some very long default text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FCX-dc-WQ2">
+                                <rect key="frame" x="96.5" y="29" width="207.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Blinking" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ox8-p2-Gzi">
+                                <rect key="frame" x="16" y="70" width="60.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Njc-nA-cCO">
+                                <rect key="frame" x="255" y="65" width="51" height="31"/>
+                                <connections>
+                                    <action selector="blinkChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="gbG-25-BrO"/>
+                                </connections>
+                            </switch>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="FCX-dc-WQ2" secondAttribute="trailing" constant="16" id="7Wy-RL-2WJ"/>
+                            <constraint firstItem="FCX-dc-WQ2" firstAttribute="baseline" secondItem="sgK-NN-quF" secondAttribute="baseline" id="J5q-1y-v7V"/>
+                            <constraint firstItem="Ox8-p2-Gzi" firstAttribute="centerY" secondItem="Njc-nA-cCO" secondAttribute="centerY" id="QwZ-6G-hPx"/>
+                            <constraint firstItem="Ox8-p2-Gzi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="S3B-Wc-ydY"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Njc-nA-cCO" secondAttribute="trailing" constant="16" id="ZCt-qM-3pQ"/>
+                            <constraint firstItem="Njc-nA-cCO" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ox8-p2-Gzi" secondAttribute="trailing" constant="5" id="a4P-9h-eDg"/>
+                            <constraint firstItem="sgK-NN-quF" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="aiw-el-7yU"/>
+                            <constraint firstItem="FCX-dc-WQ2" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sgK-NN-quF" secondAttribute="trailing" constant="5" id="lfX-uM-CUG"/>
+                            <constraint firstItem="Ox8-p2-Gzi" firstAttribute="top" secondItem="sgK-NN-quF" secondAttribute="bottom" constant="20" id="pMm-3c-eoG"/>
+                            <constraint firstItem="sgK-NN-quF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="pmZ-BT-Jxk"/>
+                            <constraint firstItem="M9V-Cs-roZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="v8N-zV-Cfw"/>
+                            <constraint firstItem="M9V-Cs-roZ" firstAttribute="top" secondItem="Ox8-p2-Gzi" secondAttribute="bottom" constant="40" id="vdp-yY-9bf"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="blinkSwitch" destination="Njc-nA-cCO" id="21f-jB-kdR"/>
+                        <outlet property="disconnectButton" destination="M9V-Cs-roZ" id="o5Z-RZ-s6j"/>
+                        <outlet property="statusLabel" destination="FCX-dc-WQ2" id="g15-s2-nT8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
