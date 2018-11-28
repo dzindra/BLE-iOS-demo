@@ -8,24 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		94362924207E136E00125CD2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94362923207E136E00125CD2 /* AppDelegate.swift */; };
-		94362926207E136E00125CD2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94362925207E136E00125CD2 /* ViewController.swift */; };
+		94362926207E136E00125CD2 /* DeviceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94362925207E136E00125CD2 /* DeviceVC.swift */; };
 		94362929207E136E00125CD2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94362927207E136E00125CD2 /* Main.storyboard */; };
 		9436292B207E136E00125CD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9436292A207E136E00125CD2 /* Assets.xcassets */; };
 		9436292E207E136E00125CD2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9436292C207E136E00125CD2 /* LaunchScreen.storyboard */; };
 		94362936207E138200125CD2 /* BTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94362935207E138200125CD2 /* BTManager.swift */; };
 		94362938207E242800125CD2 /* BTDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94362937207E242800125CD2 /* BTDevice.swift */; };
+		94946FD121AE9D8E00C21618 /* NearbyDevicesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94946FD021AE9D8E00C21618 /* NearbyDevicesVC.swift */; };
+		94946FD321AEA13500C21618 /* BTUUIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94946FD221AEA13500C21618 /* BTUUIDs.swift */; };
+		94946FD521AEA2DD00C21618 /* BTUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94946FD421AEA2DD00C21618 /* BTUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		94362920207E136E00125CD2 /* BLEDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BLEDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94362923207E136E00125CD2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		94362925207E136E00125CD2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		94362925207E136E00125CD2 /* DeviceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceVC.swift; sourceTree = "<group>"; };
 		94362928207E136E00125CD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9436292A207E136E00125CD2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9436292D207E136E00125CD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9436292F207E136E00125CD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94362935207E138200125CD2 /* BTManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTManager.swift; sourceTree = "<group>"; };
 		94362937207E242800125CD2 /* BTDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTDevice.swift; sourceTree = "<group>"; };
+		94946FD021AE9D8E00C21618 /* NearbyDevicesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyDevicesVC.swift; sourceTree = "<group>"; };
+		94946FD221AEA13500C21618 /* BTUUIDs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTUUIDs.swift; sourceTree = "<group>"; };
+		94946FD421AEA2DD00C21618 /* BTUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,16 +64,35 @@
 		94362922207E136E00125CD2 /* BLEDemo */ = {
 			isa = PBXGroup;
 			children = (
+				94946FCE21AE9CDB00C21618 /* Bluetooth */,
+				94946FCF21AE9CF000C21618 /* UI */,
 				94362923207E136E00125CD2 /* AppDelegate.swift */,
-				94362935207E138200125CD2 /* BTManager.swift */,
-				94362937207E242800125CD2 /* BTDevice.swift */,
-				94362925207E136E00125CD2 /* ViewController.swift */,
-				94362927207E136E00125CD2 /* Main.storyboard */,
 				9436292A207E136E00125CD2 /* Assets.xcassets */,
-				9436292C207E136E00125CD2 /* LaunchScreen.storyboard */,
 				9436292F207E136E00125CD2 /* Info.plist */,
 			);
 			path = BLEDemo;
+			sourceTree = "<group>";
+		};
+		94946FCE21AE9CDB00C21618 /* Bluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				94362935207E138200125CD2 /* BTManager.swift */,
+				94362937207E242800125CD2 /* BTDevice.swift */,
+				94946FD221AEA13500C21618 /* BTUUIDs.swift */,
+				94946FD421AEA2DD00C21618 /* BTUtils.swift */,
+			);
+			path = Bluetooth;
+			sourceTree = "<group>";
+		};
+		94946FCF21AE9CF000C21618 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				9436292C207E136E00125CD2 /* LaunchScreen.storyboard */,
+				94362927207E136E00125CD2 /* Main.storyboard */,
+				94362925207E136E00125CD2 /* DeviceVC.swift */,
+				94946FD021AE9D8E00C21618 /* NearbyDevicesVC.swift */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -102,6 +127,7 @@
 				TargetAttributes = {
 					9436291F207E136E00125CD2 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -147,10 +173,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94362926207E136E00125CD2 /* ViewController.swift in Sources */,
+				94362926207E136E00125CD2 /* DeviceVC.swift in Sources */,
 				94362924207E136E00125CD2 /* AppDelegate.swift in Sources */,
+				94946FD321AEA13500C21618 /* BTUUIDs.swift in Sources */,
 				94362936207E138200125CD2 /* BTManager.swift in Sources */,
 				94362938207E242800125CD2 /* BTDevice.swift in Sources */,
+				94946FD521AEA2DD00C21618 /* BTUtils.swift in Sources */,
+				94946FD121AE9D8E00C21618 /* NearbyDevicesVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,7 +255,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -279,7 +308,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -294,11 +323,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9W7F66BR5D;
 				INFOPLIST_FILE = BLEDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dzindra.BLEDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -310,11 +339,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9W7F66BR5D;
 				INFOPLIST_FILE = BLEDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dzindra.BLEDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

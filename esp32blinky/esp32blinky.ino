@@ -4,25 +4,35 @@
 #include <BLE2902.h>
 #include <TaskScheduler.h>
 
-#define SERVICE_UUID        "9a8ca9ef-e43f-4157-9fee-c37a3d7dc12d"
-#define BLINK_UUID          "e94f85c8-7f57-4dbd-b8d3-2b56e107ed60"
-#define TEXT_UUID           "326a9006-85cb-9195-d9dd-464cfbbae75a"
+#define SERVICE_UUID              "9a8ca9ef-e43f-4157-9fee-c37a3d7dc12d"
+#define BLINK_UUID                "e94f85c8-7f57-4dbd-b8d3-2b56e107ed60"
+#define SPEED_UUID                "a8985fda-51aa-4f19-a777-71cf52abba1e"
+
+#define DEVINFO_UUID              (uint16_t)0x180a
+#define DEVINFO_MANUFACTURER_UUID (uint16_t)0x2a29
+#define DEVINFO_NAME_UUID         (uint16_t)0x2a24
+#define DEVINFO_SERIAL_UUID       (uint16_t)0x2a25
+
+#define DEVICE_MANUFACTURER "The Cave"
 #define DEVICE_NAME         "ESP_Blinky"
 
 #define PIN_BUTTON 0
+#define PIN_LED LED_BUILTIN
 
 Scheduler scheduler;
 
 void buttonCb();
 void blinkCb();
+void blinkOffCb();
 
-Task taskBlink(500, TASK_FOREVER, &blinkCb, &scheduler, false);
+Task taskBlink(500, TASK_FOREVER, &blinkCb, &scheduler, false, NULL, &blinkOffCb);
 Task taskButton(30, TASK_FOREVER, &buttonCb, &scheduler, true);
 
 uint8_t blinkOn;
+uint8_t blinkSpeed = 5;
 
 BLECharacteristic *pCharBlink;
-BLECharacteristic *pCharText;
+BLECharacteristic *pCharSpeed;
 
 
 
@@ -34,7 +44,7 @@ void setBlink(bool on, bool notify = false) {
     Serial.println("Blink ON");
     taskBlink.restartDelayed(0);
   } else {
-    Serial.println("\nBlink OFF");
+    Serial.println("Blink OFF");
     taskBlink.disable();
   }
 
@@ -44,6 +54,11 @@ void setBlink(bool on, bool notify = false) {
   }
 }
 
+void setBlinkSpeed(uint8_t v) {
+  blinkSpeed = v;
+  taskBlink.setInterval(v * 100);
+  Serial.println("Blink speed updated");
+}
 
 void buttonCb() {
   uint8_t btn = digitalRead(PIN_BUTTON) != HIGH;
@@ -54,11 +69,12 @@ void buttonCb() {
 }
 
 void blinkCb() {
-  // LED is connected to serial TX only, so in order to blink it we need to send something
-  Serial.print("....");
+  digitalWrite(PIN_LED, taskBlink.getRunCounter() & 1);
 }
 
-
+void blinkOffCb() {
+  digitalWrite(PIN_LED, 0);
+}
 
 class MyServerCallbacks: public BLEServerCallbacks {
     void onConnect(BLEServer* pServer) {
@@ -85,26 +101,37 @@ class BlinkCallbacks: public BLECharacteristicCallbacks {
     }
 };
 
-class TextCallbacks: public BLECharacteristicCallbacks {
+class SpeedCallbacks: public BLECharacteristicCallbacks {
     void onWrite(BLECharacteristic *pCharacteristic) {
       std::string value = pCharacteristic->getValue();
 
-      Serial.print("Got text value: \"");
-      for (int i = 0; i < value.length(); i++) {
-        Serial.print(value[i]);
+      if (value.length() == 1) {
+        uint8_t v = value[0];
+        Serial.print("Got speed value: ");
+        Serial.println(v);
+        if (v >= 1 && v <= 10) {
+          setBlinkSpeed(v);
+          return;
+        }
       }
-      Serial.println("\"");
+      pCharSpeed->setValue(&blinkSpeed, 1);
+      Serial.println("Invalid data received");
     }
 };
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   Serial.println("Starting...");
 
   pinMode(PIN_BUTTON, INPUT);
+  pinMode(PIN_LED, OUTPUT);
 
+  String devName = DEVICE_NAME;
+  String chipId = String((uint32_t)(ESP.getEfuseMac() >> 24), HEX);
+  devName += '_';
+  devName += chipId;
 
-  BLEDevice::init(DEVICE_NAME);
+  BLEDevice::init(devName.c_str());
   BLEServer *pServer = BLEDevice::createServer();
   pServer->setCallbacks(new MyServerCallbacks());
 
@@ -115,8 +142,22 @@ void setup() {
   pCharBlink->setCallbacks(new BlinkCallbacks());
   pCharBlink->addDescriptor(new BLE2902());
 
-  pCharText = pService->createCharacteristic(TEXT_UUID, BLECharacteristic::PROPERTY_WRITE);
-  pCharText->setCallbacks(new TextCallbacks());
+  pCharSpeed = pService->createCharacteristic(SPEED_UUID, BLECharacteristic::PROPERTY_READ | BLECharacteristic::PROPERTY_WRITE);
+  pCharSpeed->setCallbacks(new SpeedCallbacks());
+  pCharSpeed->setValue(&blinkSpeed, 1);
+
+  pService->start();
+
+  pService = pServer->createService(DEVINFO_UUID);
+
+  BLECharacteristic *pChar = pService->createCharacteristic(DEVINFO_MANUFACTURER_UUID, BLECharacteristic::PROPERTY_READ);
+  pChar->setValue(DEVICE_MANUFACTURER);
+
+  pChar = pService->createCharacteristic(DEVINFO_NAME_UUID, BLECharacteristic::PROPERTY_READ);
+  pChar->setValue(DEVICE_NAME);
+
+  pChar = pService->createCharacteristic(DEVINFO_SERIAL_UUID, BLECharacteristic::PROPERTY_READ);
+  pChar->setValue(chipId.c_str());
 
   pService->start();
 
@@ -125,21 +166,22 @@ void setup() {
   BLEAdvertising *pAdvertising = pServer->getAdvertising();
 
   BLEAdvertisementData adv;
-  adv.setName(DEVICE_NAME);
-  adv.setCompleteServices(BLEUUID(SERVICE_UUID));
+  adv.setName(devName.c_str());
+  //adv.setCompleteServices(BLEUUID(SERVICE_UUID));
   pAdvertising->setAdvertisementData(adv);
 
   BLEAdvertisementData adv2;
-  adv2.setName(DEVICE_NAME);
-  //  adv.setCompleteServices(BLEUUID(SERVICE_UUID));  // uncomment this if iOS has problems discovering the service
+  //adv2.setName(devName.c_str());
+  adv2.setCompleteServices(BLEUUID(SERVICE_UUID));
   pAdvertising->setScanResponseData(adv2);
 
   pAdvertising->start();
 
   Serial.println("Ready");
+  Serial.print("Device name: ");
+  Serial.println(devName);
 }
 
 void loop() {
   scheduler.execute();
 }
-
