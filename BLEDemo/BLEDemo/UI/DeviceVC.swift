@@ -18,12 +18,12 @@ class DeviceVC: UIViewController {
         case ready
     }
     
-    var device: BTDevice? {
-        didSet {
-            navigationItem.title = device?.name ?? "Device"
-            device?.delegate = self
-        }
-    }
+//    var device: BTDevice? {
+//        didSet {
+//            navigationItem.title = device?.name ?? "Device"
+//            device?.delegate = self
+//        }
+//    }
     
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var blinkSwitch: UISwitch!
@@ -55,20 +55,20 @@ class DeviceVC: UIViewController {
                 serialLabel.isHidden = false
                 speedSlider.isEnabled = true
                 
-                if let b = device?.blink {
-                    blinkSwitch.isOn = b
-                }
-                if let s = device?.speed {
-                    speedSlider.value = Float(s)
-                }
-                serialLabel.text = device?.serial ?? "reading..."
+//                if let b = device?.blink {
+//                    blinkSwitch.isOn = b
+//                }
+//                if let s = device?.speed {
+//                    speedSlider.value = Float(s)
+//                }
+//                serialLabel.text = device?.serial ?? "reading..."
             }
         }
     }
     
-    deinit {
-        device?.disconnect()
-    }
+//    deinit {
+//        device?.disconnect()
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,15 +77,15 @@ class DeviceVC: UIViewController {
     }
 
     @IBAction func disconnectAction() {
-        device?.disconnect()
+//        device?.disconnect()
     }
 
     @IBAction func blinkChanged(_ sender: Any) {
-        device?.blink = blinkSwitch.isOn
+//        device?.blink = blinkSwitch.isOn
     }
 
     @IBAction func speedChanged(_ sender: UISlider) {
-        device?.speed = Int(speedSlider.value)
+//        device?.speed = Int(speedSlider.value)
     }
 }
 

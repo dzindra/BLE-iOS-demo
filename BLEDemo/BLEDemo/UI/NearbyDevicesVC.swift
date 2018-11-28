@@ -32,11 +32,11 @@ class NearbyDevicesVC: UITableViewController {
         ]
         updateStatusLabel()
         
-        manager.delegate = self
+//        manager.delegate = self
     }
     
     func updateStatusLabel() {
-        scanLabel.text = "state: \(manager.state), scan: \(manager.scanning)"
+//        scanLabel.text = "state: \(manager.state), scan: \(manager.scanning)"
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -46,29 +46,29 @@ class NearbyDevicesVC: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "deviceCell")!
         let device = devices[indexPath.row]
-        cell.textLabel?.text = device.name
-        cell.detailTextLabel?.text = device.detail
+//        cell.textLabel?.text = device.name
+//        cell.detailTextLabel?.text = device.detail
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let device = devices[indexPath.row]
-        
-        let vc = storyboard?.instantiateViewController(withIdentifier: "DeviceVC") as! DeviceVC
-        vc.device = device
-        device.connect()
-        show(vc, sender: self)
-    }
+//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let device = devices[indexPath.row]
+//
+//        let vc = storyboard?.instantiateViewController(withIdentifier: "DeviceVC") as! DeviceVC
+//        vc.device = device
+//        device.connect()
+//        show(vc, sender: self)
+//    }
 }
 
 extension NearbyDevicesVC: BTManagerDelegate {
     func didChangeState(state: CBManagerState) {
-        devices = manager.devices
+//        devices = manager.devices
         updateStatusLabel()
     }
     
     func didDiscover(device: BTDevice) {
-        devices = manager.devices
+//        devices = manager.devices
     }
     
     func didEnableScan(on: Bool) {
